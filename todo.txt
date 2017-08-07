@@ -1,0 +1,52 @@
+begin:
+source activate opensim-rl
+cd osim-rl/scripts/
+submit:
+python submit.py --model sample
+
+training:
+python example.py --train --model sample
+Test
+and for the gait example (walk as far as possible):
+python example.py --visualize --test --model sample
+
+
+optimisations 
+
+train feet, calf, thigh seperately using slowe learning rate once walking is possible
+https://keras.io/getting-started/faq/#how-can-i-freeze-keras-layers
+https://github.com/fchollet/keras/issues/4910
+
+ad a fine tuned start step policy: allow the agent to fall forwards
+
+read: https://medium.com/towards-data-science/reinforcement-learning-w-keras-openai-actor-critic-models-f084612cfd69
+
+
+https://gym.openai.com/evaluations/eval_AZ0K1ERjTDiuVoc1T8RX6A
+
+try 
+different netwrok size in term of units
+Distributed PPO: procimal policy optimistation
+and multiple loss functions
+check the fitness function calculation, to promote more walking
+play with learning rate
+ # logvar_speed is used to 'fool' gradient descent into making faster updates
+        # to log-variances. heuristic sets logvar_speed based on network size.
+        try different experiments
+
+try to use neat
+
+
+observation format:
+
+
+Your task is to build a function f which takes the current state observation
+ (a 41 dimensional vector) and returns the muscle excitations action 
+ (18 dimensional vector) in a way that maximizes the reward.
+
+
+
+In osim/env/run.py, there's a get_observation() function. It gets the joint values by:
+jnts = ['hip_r','knee_r','ankle_r','hip_l','knee_l','ankle_l']
+joint_angles = [self.osim_model.get_joint(jnts[i]).getCoordinate().getValue(self.osim_model.state) for i in range(6)]
+joint_vel = [self.osim_model.get_joint(jnts[i]).getCoordinate().getSpeedValue(self.osim_model.state) for i in range(6)]
