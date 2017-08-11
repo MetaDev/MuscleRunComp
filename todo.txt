@@ -13,6 +13,8 @@ python example.py --visualize --test --model sample
 
 optimisations 
 
+run the my model in the simulator and look what goes wrong
+
 train feet, calf, thigh seperately using slowe learning rate once walking is possible
 https://keras.io/getting-started/faq/#how-can-i-freeze-keras-layers
 https://github.com/fchollet/keras/issues/4910
